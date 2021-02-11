@@ -1,6 +1,6 @@
 # memory-leak-detector
+This library tracks all the memory allocated dynamically on the heap memory. Tracking memory allocation on heap memory helps C programmer to avoid memory leak and memory corruption.
 
-<<<<<<< HEAD
 ## Project Development Phases
 
 1. Structure Database  
@@ -16,6 +16,5 @@
 
 3. Memory Leak Detection Algorithm  
    MLD library triggers Memory Leak Detection Algorithm on Object Database to find leaked objects.
-=======
-This library tracks all the memory allocated dynamically on the heap memory. Tracking memory allocation on heap memory helps C programmer to avoid memory leak and memory corruption.
->>>>>>> f98a99aa8b2800b18f5b6712d3534f086855d77c
+
+
