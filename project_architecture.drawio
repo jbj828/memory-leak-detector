@@ -1,0 +1,72 @@
+<mxfile host="65bd71144e" modified="2021-02-11T06:57:31.657Z" agent="5.0 (Macintosh; Intel Mac OS X 11_1_0) AppleWebKit/537.36 (KHTML, like Gecko) Code/1.53.1 Chrome/87.0.4280.141 Electron/11.2.1 Safari/537.36" version="14.2.4" etag="bLjI01xEuK0Ro3ZRNmk2" type="embed">
+    <diagram id="QNyzHhyyYGuGv237eUmx" name="Page-1">
+        <mxGraphModel dx="497" dy="579" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px&quot;&gt;C application&lt;/font&gt;&lt;/b&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="120" width="120" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;MLD Library&lt;br&gt;&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#647687;strokeColor=#314354;fontColor=#ffffff;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="120" width="120" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="&lt;span style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;OS/Kernal&lt;br&gt;&lt;/b&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="460" width="120" height="170" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="" style="endArrow=classic;html=1;entryX=-0.024;entryY=0.35;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="3">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="160" y="180" as="sourcePoint"/>
+                        <mxPoint x="210" y="130" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="10" value="" style="endArrow=classic;html=1;entryX=0.993;entryY=0.703;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="2">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="327" y="240" as="sourcePoint"/>
+                        <mxPoint x="163" y="220" as="targetPoint"/>
+                        <Array as="points">
+                            <mxPoint x="260" y="240"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" value="" style="endArrow=classic;html=1;entryX=0.651;entryY=0.009;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.668;exitY=0.997;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="3" target="4">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="406" y="294" as="sourcePoint"/>
+                        <mxPoint x="406" y="455" as="targetPoint"/>
+                        <Array as="points"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="12" value="" style="endArrow=classic;html=1;entryX=0.25;entryY=1;entryDx=0;entryDy=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="4" target="3">
+                    <mxGeometry width="50" height="50" relative="1" as="geometry">
+                        <mxPoint x="360" y="450" as="sourcePoint"/>
+                        <mxPoint x="370.20000000000005" y="459.99999999999994" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <UserObject label="1. Request Memory" placeholders="1" name="Variable" id="17">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" vertex="1" parent="1">
+                        <mxGeometry x="180" y="160" width="120" height="20" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <UserObject label="2. Forward Memory Request to OS" placeholders="1" name="Variable" id="18">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" vertex="1" parent="1">
+                        <mxGeometry x="410" y="350" width="120" height="40" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <UserObject label="3.Memory Request Served" placeholders="1" name="Variable" id="19">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" vertex="1" parent="1">
+                        <mxGeometry x="240" y="350" width="120" height="40" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <UserObject label="4. Update internal data structure to keep track of memory objects used by the application" placeholders="1" name="Variable" id="20">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+                        <mxGeometry x="460" y="180" width="120" height="90" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+                <UserObject label="5. Memory returned to application for use" placeholders="1" name="Variable" id="24">
+                    <mxCell style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;overflow=hidden;" vertex="1" parent="1">
+                        <mxGeometry x="180" y="240" width="120" height="30" as="geometry"/>
+                    </mxCell>
+                </UserObject>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
