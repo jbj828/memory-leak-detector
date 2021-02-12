@@ -34,14 +34,27 @@ int main(int argc, char **argv) {
                                       FIELD_INFO(emp_t, salary, FLOAT, 0)};
   REG_STRUCT(struct_db, emp_t, emp_fields);
 
-  static field_info_t stud_fiels[] = {
+  static field_info_t stud_fields[] = {
       FIELD_INFO(student_t, stud_name, CHAR, 0),
       FIELD_INFO(student_t, rollno, UINT32, 0),
       FIELD_INFO(student_t, age, UINT32, 0),
       FIELD_INFO(student_t, aggregate, FLOAT, 0),
       FIELD_INFO(student_t, best_colleage, OBJ_PTR, student_t)};
-  REG_STRUCT(struct_db, student_t, stud_fiels);
+  REG_STRUCT(struct_db, student_t, stud_fields);
 
   print_structure_db(struct_db);
+
+  /*
+    Working with object database
+  */
+  object_db_t *object_db = calloc(1, sizeof(object_db_t));
+  object_db->struct_db = struct_db;
+
+  student_t *rene = xcalloc(object_db, "student_t", 1);
+  student_t *chung = xcalloc(object_db, "student_t", 1);
+  emp_t *david = xcalloc(object_db, "emp_t", 2);
+
+  print_object_db(object_db);
+
   return 0;
 }

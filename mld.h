@@ -22,6 +22,9 @@ typedef enum {
 #define FIELD_SIZE(struct_name, fld_name) sizeof(((struct_name *)0)->fld_name)
 
 typedef struct _struct_db_rec_t struct_db_rec_t;
+/*
+  Structure Database
+*/
 
 // Structure to store the information of one field of a C structure
 typedef struct _field_info_ {
@@ -74,5 +77,30 @@ int add_structure_to_struct_db(struct_db_t *struct_db,
       assert(0);                                                  \
     }                                                             \
   } while (0);
+
+/*
+  Object Database
+*/
+typedef struct _object_db_rec_ object_db_rec_t;
+
+struct _object_db_rec_ {
+  object_db_rec_t *next;
+  void *ptr;
+  unsigned int units;
+  struct_db_rec_t *struct_rec;
+};
+
+typedef struct _object_db_ {
+  struct_db_t *struct_db;
+  object_db_rec_t *head;
+  unsigned int count;
+} object_db_t;
+
+// Dumpint functions
+void print_object_rec(object_db_rec_t *obj_rec, int i);
+void print_object_db(object_db_t *object_db);
+
+// API to malloc the object
+void *xcalloc(object_db_t *object_db, char *struct_name, int units);
 
 #endif
