@@ -155,3 +155,66 @@ void print_object_db(object_db_t *object_db) {
     print_object_rec(head, i++);
   }
 }
+
+void mld_dump_object_rec_detail(object_db_rec_t *obj_rec) {
+  int n_fields = obj_rec->struct_rec->n_fields;
+
+  field_info_t *field = NULL;
+
+  int units = obj_rec->units, obj_index = 0,
+
+      field_index = 0;
+
+  for (; obj_index < units; obj_index++) {
+    char *current_object_ptr =
+        (char *)(obj_rec->ptr) + (obj_index * obj_rec->struct_rec->ds_size);
+
+    for (field_index = 0; field_index < n_fields; field_index++) {
+      field = &obj_rec->struct_rec->fields[field_index];
+
+      switch (field->dtype) {
+        case UINT8:
+        case INT32:
+        case UINT32:
+          printf("%s[%d]->%s = %d\n", obj_rec->struct_rec->struct_name,
+                 obj_index, field->fname,
+                 *(int *)(current_object_ptr + field->offset));
+          break;
+
+        case CHAR:
+          printf("%s[%d]->%s = %s\n", obj_rec->struct_rec->struct_name,
+                 obj_index, field->fname,
+                 (char *)(current_object_ptr + field->offset));
+          break;
+
+        case FLOAT:
+          printf("%s[%d]->%s = %f\n", obj_rec->struct_rec->struct_name,
+                 obj_index, field->fname,
+                 *(float *)(current_object_ptr + field->offset));
+          break;
+
+        case DOUBLE:
+          printf("%s[%d]->%s = %f\n", obj_rec->struct_rec->struct_name,
+                 obj_index, field->fname,
+                 *(double *)(current_object_ptr + field->offset));
+          break;
+
+        case OBJ_PTR:
+          printf("%s[%d]->%s = %p\n", obj_rec->struct_rec->struct_name,
+                 obj_index, field->fname,
+                 (void *)*(int *)(current_object_ptr + field->offset));
+          break;
+
+        case OBJ_STRUCT:
+
+          /*Later*/
+
+          break;
+
+        default:
+
+          break;
+      }
+    }
+  }
+}
