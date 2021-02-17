@@ -16,6 +16,8 @@ typedef enum {
   OBJ_STRUCT
 } data_type_t;
 
+typedef enum { MLD_FALSE, MLD_TRUE } mld_boolean_t;
+
 #define OFFSETOF(struct_name, fld_name) \
   (unsigned int)&(((struct_name *)0)->fld_name)
 
@@ -88,6 +90,7 @@ struct _object_db_rec_ {
   void *ptr;
   unsigned int units;
   struct_db_rec_t *struct_rec;
+  mld_boolean_t is_root;  // Is this object is root object
 };
 
 typedef struct _object_db_ {
@@ -102,5 +105,13 @@ void print_object_db(object_db_t *object_db);
 
 // API to malloc the object
 void *xcalloc(object_db_t *object_db, char *struct_name, int units);
+void xfree(object_db_t *object_db, void *ptr);
+
+void mld_dump_object_rec_detail(object_db_rec_t *obj_rec);
+
+// APIs to register root objects
+void mld_register_root_object(object_db_t *object_db, void *objptr,
+                              char *struct_name, unsigned int units);
+void set_mld_object_as_global_root(object_db_t *object_db, void *obj_ptr);
 
 #endif

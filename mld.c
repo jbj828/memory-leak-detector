@@ -98,7 +98,8 @@ static object_db_rec_t *object_db_look_up(object_db_t *object_db, void *ptr) {
 }
 
 static void add_object_to_object_db(object_db_t *object_db, void *ptr,
-                                    int units, struct_db_rec_t *struct_rec) {
+                                    int units, struct_db_rec_t *struct_rec,
+                                    mld_boolean_t is_root) {
   object_db_rec_t *obj_rec = object_db_look_up(object_db, ptr);
   assert(!obj_rec);
 
@@ -108,6 +109,7 @@ static void add_object_to_object_db(object_db_t *object_db, void *ptr,
   obj_rec->ptr = ptr;
   obj_rec->units = units;
   obj_rec->struct_rec = struct_rec;
+  obj_rec->is_root = is_root;
 
   object_db_rec_t *head = object_db->head;
 
@@ -132,19 +134,29 @@ void *xcalloc(object_db_t *object_db, char *struct_name, int units) {
   return ptr;
 }
 
+void xfree(object_db_t *object_db, void *ptr) {
+  if (!ptr) return;
+  object_db_rec_t *object_rec = object_db_look_up(object_db, ptr);
+
+  assert(object_rec);
+  assert(object_rec->ptr);
+  free(object_rec->ptr);
+}
+
 void print_object_rec(object_db_rec_t *obj_rec, int i) {
   if (!obj_rec) return;
   printf(ANSI_COLOR_MAGENTA
          "---------------------------------------------------------------------"
-         "----------------------------------|\n");
+         "--------------------------------|\n" ANSI_COLOR_RESET);
   printf(ANSI_COLOR_YELLOW
-         "%-3d ptr = %-20p | next = %-20p | units = %-4d | struct_name = %-10s "
-         "|\n",
+         "%-3d ptr = %-10p | next = %-10p | units = %-4d | struct_name = %-10s "
+         "| is_root = %s |\n" ANSI_COLOR_RESET,
          i, obj_rec->ptr, obj_rec->next, obj_rec->units,
-         obj_rec->struct_rec->struct_name);
+         obj_rec->struct_rec->struct_name,
+         obj_rec->is_root ? "TRUE " : "FALSE");
   printf(ANSI_COLOR_MAGENTA
          "---------------------------------------------------------------------"
-         "----------------------------------|\n");
+         "--------------------------------|\n" ANSI_COLOR_RESET);
 }
 
 void print_object_db(object_db_t *object_db) {
@@ -154,6 +166,26 @@ void print_object_db(object_db_t *object_db) {
   for (; head; head = head->next) {
     print_object_rec(head, i++);
   }
+}
+
+/*
+  The global object of the application which is not created by xcalloc
+  should be registered with MLD using below API
+*/
+void mld_register_global_object_as_root(object_db_t *object_db, void *objptr,
+                                        char *struct_name, unsigned int units) {
+  struct_db_rec_t *struct_rec =
+      struct_db_look_up(object_db->struct_db, struct_name);
+  assert(struct_rec);
+
+  add_object_to_object_db(object_db, objptr, units, struct_rec, MLD_TRUE);
+}
+
+void mld_set_dynamic_object_as_root(object_db_t *object_db, void *obj_ptr) {
+  object_db_rec_t *obj_rec = object_db_look_up(object_db, obj_ptr);
+  assert(obj_rec);
+
+  obj_rec->is_root = MLD_TRUE;
 }
 
 void mld_dump_object_rec_detail(object_db_rec_t *obj_rec) {
